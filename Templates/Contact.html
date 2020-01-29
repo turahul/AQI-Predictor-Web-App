@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename='Styles/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="#">
+    <title>Contact Us</title>
+    
+  </head>
+  <body style="background-color:#F9FAFB;">
+    <br>
+    <section id="nav-bar">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='Images/logo.jpg') }}"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="Home.html">Home </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="aqiTeller.html">AQI Teller</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="AboutUs.html">About Us</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="Contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <br>
+    <section class="slider">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="Home.html" style="color: #21D192;">Home</a></li>
+                    <li class="breadcrumb-item active">Contact Us</li>
+            </ol>
+            </nav>
+        </div>
+    </section>
+    <br>
+    <section class="contact">
+        <div class="section-content">
+            <h1 class="section-header">Get in <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s" style="color: #21d192"> Touch with us</span></h1>
+            <h3>A Step Towards Your Health </h3>
+        </div>
+        <div class="contact-section text-center text-md-left mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col 6  ">
+                        <form>
+                            <div class="form-group">
+			  				   <label for="exampleInputUsername">Your name</label>
+					    	  <input type="text" class="form-control" id="" placeholder=" Enter Name">
+				  		    </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail">Email Address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail" placeholder=" Enter Email id">
+                            </div>	
+                            <div class="form-group">
+                                <label for="telephone">Mobile No.</label>
+                                <input type="tel" class="form-control" id="telephone" placeholder=" Enter mobile no">
+                            </div>
+                        </form>
+			  		</div>
+			  		<div class="col 6">
+			  			<div class="form-group">
+			  				<label for ="description"> Message</label>
+			  			 	<textarea  class="form-control" id="description" placeholder="Enter Your Message"></textarea>
+			  			</div>
+			  			<div>
+                            <button type="button" class="btn btn-success" 
+                                    ><i class="fa fa-paper-plane" aria-hidden="true"></i>  Send Message</button>
+			  			</div>
+					</div>
+                </div>                         
+            </div>
+        </div>
+    </section>
+    <br> <br>
+    <section class="footer">
+        <!-- Footer -->
+        <footer class="page-footer font-small blue-grey lighten-5" style="background-clip: content-box; background-color: #ECEFF1;">
+            <div style="background-color: #21d192;">
+                <div class="container">
+                    <div class="row py-4 d-flex align-items-center">
+                        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                            <h6 class="mb-0">Get connected with us on social networks!</h6>
+                        </div>
+                        <div class="col-md-6 col-lg-7 text-center text-md-right">
+                            <a class="fb-ic">
+                                <i class="fa fa-facebook white-text mr-4" ></i>
+                            </a>
+                            <a class="tw-ic">
+                                <i class="fa fa-twitter white-text mr-4"></i>
+                            </a>
+                            <a class="li-ic">
+                                <i class="fa fa-linkedin white-text mr-4"></i>
+                            </a>
+                            <a class="ins-ic">
+                                <i class="fa fa-instagram white-text mr-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container text-center text-md-left mt-5" >
+                <div class="row mt-3 dark-grey-text">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                        <h6 class="text-uppercase font-weight-bold" style="">Company name</h6>
+                        <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; border-top: 3px solid #21D192;">
+                        <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                        <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; border-top: 3px solid #21D192;">
+                        <p class="design">
+                            <a class="dark-grey-text" href="Home.html">Home</a>
+                        </p>
+                        <p class="design">
+                            <a class="dark-grey-text" href="aqiTeller.html">AQI Teller</a>
+                        </p>
+                        <p class="design">
+                            <a class="dark-grey-text" href="AboutUs.html">About Us</a>
+                        </p>
+                        <p class="design">
+                            <a class="dark-grey-text" href="Contact.html">Contact Us</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                        <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; border-top: 3px solid #21D192;">
+                        <p>
+                            <i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+                        <p>
+                            <i class="fa fa-envelope mr-3" aria-hidden="true"></i> info@example.com</p>
+                        <p>
+                            <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+                        <p>
+                            <i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright text-center text-black-50 py-3" style="background-color: #BDBFC1">© 2018 Copyright:
+                <a class="dark-grey-text" href="https://sites.google.com/view/mpvir/home" style="color : black ;text-decoration:none;">MVPIR Group</a>
+            </div>
+        </footer>
+    </section>
+    <button id="back-to-top-btn"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="{{url_for('static',filename='JS/design.js')}}"></script>
+  </body>
+</html>
