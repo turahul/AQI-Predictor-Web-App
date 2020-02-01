@@ -176,3 +176,34 @@ textarea.form-control {
 	background-color:#21D192;
     border-color: #21D192;
 }
+
+.btn:active,.btn-success:active{
+	color: #23272B;
+	background-color:#21D192;
+    border-color: #21D192;
+}
+
+.btn:focus,.btn-success:focus{
+	color: #23272B;
+	background-color:#21D192;
+    border-color: #21D192;
+}
+
+.btn:visited,.btn-success:visited{
+	color: #23272B;
+	background-color:#21D192;
+    border-color: #21D192;
+}
+
+.card-link:hover{
+	color:#21D192;
+}
+
+.read:hover{
+	text-decoration:none;
+}
+
+.read:hover{
+	color:#21D192;
+	text-decoration:none;
+}

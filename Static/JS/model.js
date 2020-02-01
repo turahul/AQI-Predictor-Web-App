@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.image-section').hide();
     $('.loader').hide();
     $('#result').hide();
+	$('.aqi').hide();
 
     // Upload Preview
     function readURL(input) {
@@ -50,16 +51,19 @@ $(document).ready(function () {
 					$('#result').text(' Result:  BAD' );
 					$("#result").css("color", "red");
 					console.log('Success1!');
+					$('.aqi').fadeIn(600)
 				}
 				if(data == '[2]'){
 					$('#result').text(' Result:  GOOD' );
 					$("#result").css("color", "green");
 					console.log('Success2!');
+					$('.aqi').fadeIn(600)
 				}
 				if(data == '[0]'){
 					$('#result').text(' Result:  Average' );
 					$("#result").css("color", "Yellow");
 					console.log('Success0!');
+					$('.aqi').fadeIn(600)
 				}
 				
             },
