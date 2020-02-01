@@ -18,7 +18,7 @@
     <section id="nav-bar">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#"><img src="{{url_for('static',filename='Images/logo.jpg')}}"></a>
+                <a class="navbar-brand" href="Home.html" style="font-family: 'Lobster', cursive; color: #180073; font-size: 22px;"><b><i>AQI </i></b><span style="color: #33CC34;">PREDICTOR</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,10 +37,6 @@
                             <a class="nav-link" href="Contact.html">Contact Us</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
                 </div>
             </nav>
         </div>
@@ -68,6 +64,38 @@
                 </div>
                 <div class="col-12 col-sm-6 col-lg-6 d-flex justify-content-center">
                     <img src="{{ url_for('static', filename='Images/about4.jpg') }}" class="img-responsive" alt="Responsive image" style="display: block;max-width: 100%;height: auto;">
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <section class="research">
+        <div class="container text-center text-md-left mt-5">
+            <h3 class="text-uppercase font-weight-bold" >Our Research Group</h3>
+            <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 70px; border-top: 3px solid #21D192;"><br>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-lg-6 "> 
+                    <h4 class="d-flex justify-content-center">Want to Establish a  cost-efficient startup that can tackle the problem related to AQI</h4>
+                    <p class="d-flex justify-content-center">Pollution is a serious concern nowadays.Advanced countries are shifting towards green energy.Our endeavour will help people to know about the Air quality in which they are breathing.<br><br>Government can also target specific areas which are in dire need for vegitation based upon our predicted AQI</p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-6 d-flex justify-content-center">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-width: 100%;height: auto;">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="{{ url_for('static', filename='Images/group1.jpeg') }}" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="{{ url_for('static', filename='Images/group2.jpeg') }}" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="{{ url_for('static', filename='Images/group3.jpeg') }}" alt="Third slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="{{ url_for('static', filename='Images/group4.jpeg') }}" alt="Third slide">
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
         </div>

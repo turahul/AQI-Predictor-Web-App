@@ -20,7 +20,7 @@
     <section id="nav-bar">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="Home.html"><img src="{{url_for('static',filename='Images/logo.jpg')}}"></a>
+                <a class="navbar-brand" href="Home.html" style="font-family: 'Lobster', cursive; color: #180073; font-size: 22px;"><b><i>AQI </i></b><span style="color: #33CC34;">PREDICTOR</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,10 +39,6 @@
                             <a class="nav-link" href="Contact.html">Contact Us</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" id="searchTextField"  >
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
                 </div>
             </nav>
         </div>
@@ -90,12 +86,13 @@
                 </div>
                <div class="col-12 col-sm-6 col-lg-6 " style="background-color: #f9fafb; height: 400px;">
                     <div class="row h-100 justify-content-center align-items-center">
-                        <div class="form-group">
-                             <img src="{{url_for('static',filename='Images/logo.jpg')}}" style="height: 66px;width: 60px;">
-                            <h3 style="margin-bottom: 10px">Download Apps</h3>
-                            <h5>Anywhere, anytime - </h5><h5><br>Our apps will help you make smarter health decisions,<br>For you and your loved ones</h5>
+                        <div class="form-group ">
+                            <img src="{{url_for('static',filename='Images/logo.png')}}" style="max-width: 100%;max-height: 100%; margin-top: -10%; margin-bottom: -13%;">
+                            <h3 class="d-flex justify-content-center" style="margin-top: -5%;font-family: 'Molle', cursive;">Know Before You Leave</h3><br>
+                            <h5 class="d-flex justify-content-center">Make Smarter Decision </h5>
+                            <div  class="d-flex justify-content-center">
                             <br><img src="{{url_for('static',filename='Images/appStore.png')}}"> 
-                            <img src="{{url_for('static',filename='Images/playStore.png')}}">
+                            <img src="{{url_for('static',filename='Images/playStore.png')}}"></div>
                         </div>
                     </div>
                 </div>
