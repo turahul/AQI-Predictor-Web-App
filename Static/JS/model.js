@@ -36,7 +36,7 @@ $(document).ready(function () {
         // Make prediction by calling api /predict
         $.ajax({
             type: 'POST',
-            url: 'http://127.0.0.1:5000/predict',
+            url: 'http://192.168.0.4:8080/predict',
             data: form_data,
             contentType: false,
             cache: false,

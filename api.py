@@ -6,13 +6,15 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from apiclient.http import MediaFileUpload
 
+from firebase import firebase
 from flask import Flask, jsonify, request, render_template
 from werkzeug.utils import secure_filename
 import cv2
-#from flask_cors import CORS
+from flask_cors import CORS
 import numpy as np
 import os
-#import keras
+import base64
+import shutil
 from keras.models import load_model
 from keras.preprocessing import image
 from keras.preprocessing.image import img_to_array
@@ -22,7 +24,7 @@ from keras import backend as K
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 app = Flask(__name__)
-#CORS(app)
+CORS(app)
 
 model_path = "Static/Model/VGG16.h5" 
 model_weight = "Static/Model/weights_VGG16.h5"
@@ -49,7 +51,7 @@ def contact():
 def map():
     return render_template('Map.html')  
 
-def model_predict(img_path,model,filename):
+def model_predict(img_path,filename):
     
     
     img = cv2.imread(img_path)
@@ -58,39 +60,15 @@ def model_predict(img_path,model,filename):
     img = img_to_array(img)
     img = np.expand_dims(img, axis=0)
 
+    model = load_model(model_path)
+    model.load_weights(model_weight)
+    
     prediction = model.predict(img)
     K.clear_session()
     y_classes = prediction.argmax(axis=1) 
     save(y_classes,filename)
     return y_classes
-    
-@app.route('/predict', methods=['GET', 'POST'])
-def upload():
-    if request.method == "POST":
 
-        if request.files:
-            output={}
-            image = request.files["image"]
-            print(request.files)
-            basepath = os.path.dirname(__file__)
-            file_path = os.path.join(
-            basepath, 'uploads', secure_filename(image.filename))
-            print(image.filename)
-            image.save(file_path)
-            # Make prediction
-            model = load_model(model_path)
-            model.load_weights(model_weight)
-            preds = model_predict(file_path, model,image.filename)
-            
-            '''
-            file = os.getcwd()
-            del_pic = file +'\\uploads\\'+filename
-            os.remove(del_pic)
-            print(os.getcwd())
-            '''
-            return str(preds)
-            
-    return "Error"
 def save(value,filename):
 
     creds = None
@@ -125,7 +103,52 @@ def save(value,filename):
                                         media_body=media,
                                         fields='id').execute()
     print ('File ID: %s' % file.get('id'))
-    
 
+def save_to_DB(log,lat,city):
+    print("DB")
+    
+@app.route('/classify', methods=['GET', 'POST'])
+def classify():
+    if request.method == 'POST':
+        encodedimage = request.values['image']
+        decodedimage = base64.b64decode(encodedimage)
+        longitude = request.values['longitude']
+        latitude = request.values['latitude']
+        city = request.values['city']
+        
+        current = os.getcwd()
+        new = current + '/uploads'
+        os.chdir(new)
+        
+        with open('musk1.jpg', 'wb') as wfile:
+        	wfile.write(decodedimage)
+        os.chdir(current)
+        file_path = new + '/musk1.jpg'
+        preds = model_predict(file_path,"musk1.jpg")
+        
+        return str(preds)
+    else:
+        return "ONLY POST REQUEST"
+        
+@app.route('/predict', methods=['GET', 'POST'])
+def upload():
+    if request.method == "POST":
+
+        if request.files:
+            output={}
+            image = request.files["image"]
+            print(request.files)
+            basepath = os.path.dirname(__file__)
+            file_path = os.path.join(
+            basepath, 'uploads', secure_filename(image.filename))
+            print(image.filename)
+            image.save(file_path)
+            # Make prediction
+            
+            preds = model_predict(file_path,image.filename)
+            return str(preds)
+            
+    return "Error"
+    
 if __name__ == '__main__':
-    app.run(debug=True)    
+    app.run( port=8080, host='0.0.0.0')
