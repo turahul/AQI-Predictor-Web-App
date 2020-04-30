@@ -1,3 +1,4 @@
+#for dive
 from __future__ import print_function
 import pickle
 import os.path
@@ -6,7 +7,12 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from apiclient.http import MediaFileUpload
 
-from firebase import firebase
+#for db
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+
+#for model,web and android
 from flask import Flask, jsonify, request, render_template
 from werkzeug.utils import secure_filename
 import cv2
@@ -20,14 +26,22 @@ from keras.preprocessing import image
 from keras.preprocessing.image import img_to_array
 from keras import backend as K
 
+#for sky detector
+from detectron2.engine import DefaultPredictor
+from detectron2.config import get_cfg
+#from detectron2.utils.visualizer import Visualizer
+#from detectron2.data import MetadataCatalog
+#from detectron2.modeling import build_model
+
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 app = Flask(__name__)
 CORS(app)
 
-model_path = "Static/Model/VGG16.h5" 
-model_weight = "Static/Model/weights_VGG16.h5"
+model_path = "static/Model/VGG16.h5" 
+model_weight = "static/Model/weights_VGG16.h5"
 
 @app.route('/')   
 @app.route('/Home.html')
@@ -47,12 +61,34 @@ def aqiTeller():
 def contact():
     return render_template('Contact.html')
     
-@app.route('/Map.html')
+@app.route('/Aqlmap.html')
 def map():
-    return render_template('Map.html')  
+    return render_template('Aqlmap.html')  
+
+def detect_sky(img_path):
+    im = cv2.imread(img_path)
+
+    # Create config
+    cfg = get_cfg()
+    path="/home/waqas/aqi/lib/python3.6/site-packages/detectron2/model_zoo/configs/COCO-PanopticSegmentation/panoptic_fpn_R_50_1x.yaml"
+    cfg.merge_from_file(path)
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set threshold for this model
+    cfg.MODEL.DEVICE = "cpu"
+    cfg.MODEL.WEIGHTS = "static/Model/model.pkl"
+
+    # Create predictor
+    predictor = DefaultPredictor(cfg)
+
+    # Make prediction
+    outputs = predictor(im)
+
+    for i in outputs["panoptic_seg"][1]:
+        if i['category_id'] == 40:
+            if i['isthing'] == False:
+                return "yes"
+    return "NO"
 
 def model_predict(img_path,filename):
-    
     
     img = cv2.imread(img_path)
     img = cv2.resize(img, (96, 96))
@@ -102,10 +138,20 @@ def save(value,filename):
     file = service.files().create(body=file_metadata,
                                         media_body=media,
                                         fields='id').execute()
-    print ('File ID: %s' % file.get('id'))
 
-def save_to_DB(log,lat,city):
-    print("DB")
+def save_to_DB(log,lat,result):
+    # Fetch the service account key JSON file contents
+    
+    if (not len(firebase_admin._apps)):
+        cred = credentials.Certificate('wedapp-266618-firebase-adminsdk-yfm27-c7edafeb13.json')
+        # Initialize the app with a service account, granting admin privileges
+        firebase_admin.initialize_app(cred, {
+            'databaseURL': 'https://wedapp-266618.firebaseio.com/'
+        })
+    # As an admin, the app has access to read and write all data, regradless of Security Rules
+    ref = db.reference('wedapp-266618')
+    
+    users_ref = ref.push({'longitude':log,'latitude':lat,'result':result})
     
 @app.route('/classify', methods=['GET', 'POST'])
 def classify():
@@ -114,7 +160,7 @@ def classify():
         decodedimage = base64.b64decode(encodedimage)
         longitude = request.values['longitude']
         latitude = request.values['latitude']
-        city = request.values['city']
+        
         
         current = os.getcwd()
         new = current + '/uploads'
@@ -124,9 +170,14 @@ def classify():
         	wfile.write(decodedimage)
         os.chdir(current)
         file_path = new + '/musk1.jpg'
-        preds = model_predict(file_path,"musk1.jpg")
-        
-        return str(preds)
+        sky = detect_sky(file_path)
+        if sky == "NO":
+            return "NO"
+        else:
+            preds = model_predict(file_path,"musk1.jpg")
+            save_to_DB(longitude,latitude,str(preds[0]))
+            print(preds[0])
+            return str(preds)
     else:
         return "ONLY POST REQUEST"
         
@@ -144,11 +195,15 @@ def upload():
             print(image.filename)
             image.save(file_path)
             # Make prediction
-            
-            preds = model_predict(file_path,image.filename)
-            return str(preds)
+            sky = detect_sky(file_path)
+
+            if sky == "NO":
+                return "NO"
+            else:
+                preds = model_predict(file_path,image.filename)
+                return str(preds)
             
     return "Error"
     
 if __name__ == '__main__':
-    app.run( port=8080, host='0.0.0.0')
+    app.run( port=8080, host='0.0.0.0',threaded=False)

@@ -1,9 +1,9 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     // Init
     $('.image-section').hide();
     $('.loader').hide();
     $('#result').hide();
-	$('.aqi').hide();
+    $('.aqi').hide();
 
     // Upload Preview
     function readURL(input) {
@@ -12,8 +12,9 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
                 $('#imagePreview').hide();
+		$('.aqi').hide();
                 $('#imagePreview').fadeIn(650);
-            }
+            };
             reader.readAsDataURL(input.files[0]);
         }
     }
@@ -22,7 +23,8 @@ $(document).ready(function () {
         $('#btn-predict').show();
         $('#result').text('');
         $('#result').hide();
-        readURL(this);
+	$('.aqi').hide();
+        readURL(this);	
     });
 
     // Predict
@@ -36,7 +38,7 @@ $(document).ready(function () {
         // Make prediction by calling api /predict
         $.ajax({
             type: 'POST',
-            url: 'http://192.168.0.4:8080/predict',
+            url: 'http://0.0.0.0:8080/predict',
             data: form_data,
             contentType: false,
             cache: false,
@@ -48,25 +50,34 @@ $(document).ready(function () {
                 $('#result').fadeIn(600);
                 
 				if(data == '[1]'){
-					$('#result').text(' Result:  BAD' );
+					$('#result').text('Haazardous' );
 					$("#result").css("color", "red");
 					console.log('Success1!');
-					$('.aqi').fadeIn(600)
+					$('.aqi').fadeIn(600);
 				}
 				if(data == '[2]'){
-					$('#result').text(' Result:  GOOD' );
+					$('#result').text('Good' );
 					$("#result").css("color", "green");
 					console.log('Success2!');
-					$('.aqi').fadeIn(600)
+					$('.aqi').fadeIn(600);
 				}
 				if(data == '[0]'){
-					$('#result').text(' Result:  Average' );
+					$('#result').text('Unhealthy for Sensitive Group' );
 					$("#result").css("color", "Yellow");
 					console.log('Success0!');
-					$('.aqi').fadeIn(600)
+					$('.aqi').fadeIn(600);
+				}
+				if(data == 'NO'){
+					$('.image-section').hide();
+    					$('.loader').hide();
+    					$('#result').hide();
+					$('.aqi').hide();
+					alert("Read Instruction Carefully and upload Image 						Again:)!!");
 				}
 				
-            },
+            },error: function (request, status, error) {
+				alert(request.responseText);
+			}
         });
     });
 
